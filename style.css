@@ -1,0 +1,142 @@
+* { box-sizing: border-box; }
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    margin: 0;
+    padding: 30px 20px;
+    background: #1a1a1a;
+    color: #ccc;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: #222;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.how-it-works h3 {
+    color: #888;
+    font-size: 0.75em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 10px 0;
+}
+
+.how-it-works p {
+    margin: 0 0 10px 0;
+    color: #aaa;
+}
+
+.how-it-works p:last-of-type { margin-bottom: 0; }
+
+code {
+    background: #111;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 0.9em;
+    color: #e8b84a;
+}
+
+.console {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.console-header {
+    background: #1a1a1a;
+    padding: 8px 12px;
+    border-bottom: 1px solid #333;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.console-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #444;
+}
+
+.console-title {
+    margin-left: 8px;
+    color: #555;
+    font-size: 0.8em;
+}
+
+#log {
+    padding: 12px;
+    margin: 0;
+    font-family: monospace;
+    font-size: 13px;
+    color: #888;
+    min-height: 100px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.log-line { margin: 3px 0; }
+.log-time { color: #555; }
+.log-info { color: #888; }
+.log-success { color: #6a6; }
+.log-error { color: #a66; }
+.log-warn { color: #a86; }
+
+.result-card {
+    display: none;
+}
+
+.result-card h3 {
+    color: #6a6;
+    font-size: 0.9em;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+}
+
+#data {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 12px;
+    margin: 0;
+    font-family: monospace;
+    font-size: 12px;
+    color: #888;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #444;
+    font-size: 0.8em;
+}
+
+.footer a { color: #666; }
+.footer a:hover { color: #888; }

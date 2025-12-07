@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CORS Misconfiguration Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CORS Misconfiguration Demo</h1>
+            <p class="subtitle">See what happens when Access-Control-Allow-Origin goes wrong</p>
+        </header>
+
+        <div class="card how-it-works">
+            <h3>What's happening here?</h3>
+            <p>
+                This page makes a cross-origin request <em>with credentials</em> to whatever URL you specify.
+                If the target has a misconfigured CORS policy (like reflecting any Origin with <code>Access-Control-Allow-Credentials: true</code>),
+                the browser will happily hand over the response &mdash; cookies and all.
+            </p>
+            <p>
+                <strong>Try it:</strong> <code>?target=https://vulnerable-api.example/me</code>
+            </p>
+        </div>
+
+        <div class="console">
+            <div class="console-header">
+                <span class="console-dot dot-red"></span>
+                <span class="console-dot dot-yellow"></span>
+                <span class="console-dot dot-green"></span>
+                <span class="console-title">request log</span>
+            </div>
+            <pre id="log"></pre>
+        </div>
+
+        <div id="result" class="card result-card">
+            <h3>Response Data</h3>
+            <pre id="data"></pre>
+        </div>
+
+        <div class="footer">
+            For educational & authorized testing only.<br>
+            Learn more: <a href="https://portswigger.net/web-security/cors" target="_blank">PortSwigger CORS Guide</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
